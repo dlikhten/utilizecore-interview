@@ -2,7 +2,6 @@ class ApplicationController < ActionController::API
   class UnauthorizedError < StandardError; end
 
   include Graphiti::Rails::Responders
-  include DeviseTokenAuth::Concerns::SetUserByToken
 
   register_exception UnauthorizedError, status: 422
 
@@ -13,6 +12,10 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_user!
-    @current_user = User.find_by(email: headers["current_email"])
+    @current_user = User.find_by(email: request.headers["current-email"])
+  end
+
+  def current_user
+    @current_user
   end
 end

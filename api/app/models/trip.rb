@@ -29,6 +29,10 @@ class Trip < ApplicationRecord
   belongs_to :assignee, class_name: "User"
   belongs_to :owner, class_name: "User"
 
+  scope :for_user, ->(user) {
+    where("assignee_id = :user_id OR owner_id = :user_id", user_id: user.id)
+  }
+
   validates :status, :estimated_time_of_arrival, :estimated_time_of_completion, :location, presence: true
   validates :start_at, presence: true, if: ->{ status == "in-progress" }
   validates :completed_at, presence: true, if: ->{ status == "completed" }
