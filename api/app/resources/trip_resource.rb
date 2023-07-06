@@ -1,4 +1,6 @@
 class TripResource < ApplicationResource
+  self.type = "trip"
+
   attribute :location, :string
   attribute :description, :string
   attribute :status, :string_enum, writeable: false, allow: Trip::STATUSES

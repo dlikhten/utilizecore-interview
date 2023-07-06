@@ -36,6 +36,9 @@ from scratch, I copied over the critical aspects of the architecture. Therefore 
 sprinkled here and there which aren't needed for such a simple example, but happen to be really convenient for more
 complex cases.
 
+I also didn't go for 100% test coverage to save time, but handled the critical scenarios mainly around data integrity
+and form operations where things could go wrong.
+
 ### Backend
 
 The general architecture is using [json-api](https://jsonapi.org/) along with [graphiti](https://www.graphiti.dev)

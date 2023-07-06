@@ -9,24 +9,8 @@ class FormResource < Graphiti::Resource
   self.attributes_readable_by_default = true
   self.attributes_writable_by_default = true
 
-  def current_practice
-    context.current_practice
-  end
-
   def current_user
     context.current_user
-  end
-
-  def current_staff_member
-    context.current_staff_member
-  end
-
-  def current_client
-    context.current_client
-  end
-
-  def impersonating?
-    context.impersonating?
   end
 
   def build(model_class)
@@ -41,13 +25,16 @@ class FormResource < Graphiti::Resource
     model.attributes = attributes
   end
 
+  # before saving, we always populate the context into the model so it can be used during saving
   def save(model, meta = nil)
-    %w{user practice staff_member client}.each do |attr|
+    %w{user}.each do |attr|
       model.send(:"current_#{attr}=", self.send(:"current_#{attr}")) if model.respond_to?(:"current_#{attr}")
     end
     model.tap { model.save }
   end
 
+  # if you request a form by id, you are asking to hydrate that form to pre-fill a form in the UI, this only works
+  # if the form model has a hydrate method.
   def resolve(scope)
     obj = model.new
     obj.id = scope[:id]

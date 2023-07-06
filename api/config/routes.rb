@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     resources :trips, only: [:index, :show]
 
     # forms
-    # resources :create_trip_forms, only: [:create]
-    # resources :action_check_in_forms, only: [:create]
-    # resources :action_check_out_forms, only: [:create]
+    resources :login_forms, only: [:create]
+    resources :create_trip_forms, only: [:create]
+    resources :action_check_in_forms, only: [:create]
+    resources :action_check_out_forms, only: [:create]
   end
 end

@@ -3,7 +3,7 @@
 class ActionCheckOutForm < BaseForm
   attr_accessor :trip_id
 
-  def initialize(attributes)
+  def initialize(attributes = {})
     super
     write_only!
   end
