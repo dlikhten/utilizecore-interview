@@ -3,10 +3,6 @@ import { duration } from 'concerns/date_parsing';
 import { TripRecord } from 'models/TripRecord';
 import { useEffect, useMemo, useState } from 'react';
 
-type TripStatusCellProps = {
-  trip: TripRecord;
-};
-
 function paddedPositiveNumber(number: number) {
   if (number < 10) {
     return `0${number}`;
@@ -14,7 +10,7 @@ function paddedPositiveNumber(number: number) {
   return `${number}`;
 }
 
-export function TripStatusCell({ trip }: TripStatusCellProps) {
+export function TripStatusCell({ trip }: { trip: TripRecord }) {
   const [elapsed, setElapsed] = useState('');
 
   const computedStatus = trip.computedStatus();

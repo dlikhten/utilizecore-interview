@@ -1,3 +1,4 @@
+import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import classNames from 'classnames';
 import { Button } from 'components/forms/Button';
 import { TripRow } from 'components/pages/trips/TripRow';
@@ -32,11 +33,13 @@ export default function Trips() {
   );
 
   return (
-    <div className="bg-blue-500 w-full h-screen p-4">
-      <div>
-        <Button>Add Trip</Button>
+    <div className="bg-blue-300 w-full h-screen p-4">
+      <div className="flex justify-end">
+        <Button>
+          <PlusCircleIcon width={24} height={24} className="mr-2" /> Add Trip
+        </Button>
       </div>
-      <div className="grid grid-cols-7">
+      <div className="grid grid-cols-7 mt-4">
         <HeaderCell position="head">Assignee</HeaderCell>
         <HeaderCell>Owner</HeaderCell>
         <HeaderCell>Address</HeaderCell>

@@ -14,10 +14,6 @@ const VALIDATION = object({
   email: string().required(),
 });
 
-interface Values {
-  email: string;
-}
-
 export default function Login() {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -27,7 +23,7 @@ export default function Login() {
       dispatch(setCurrentEmail(form.email));
       router.push('/trips');
     },
-    [dispatch]
+    [dispatch, router]
   );
 
   const onSubmit = useSubmit<LoginFormAttributes, LoginFormRecord, LoginFormAttributes>({
@@ -41,7 +37,7 @@ export default function Login() {
         <Formik initialValues={INITIAL_VALUES} validationSchema={VALIDATION} onSubmit={onSubmit}>
           <Form className="flex flex-col w-full items-center pt-20">
             <FormikInput name="email" label="Email" />
-            <SubmitButtonField buttonStyle="wide">Login</SubmitButtonField>
+            <SubmitButtonField>Login</SubmitButtonField>
           </Form>
         </Formik>
       </div>

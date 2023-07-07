@@ -1,13 +1,10 @@
 import { FormatDate } from 'components/FormatDate';
 import { TripStatusCell } from 'components/pages/trips/StatusCell';
 import { TableCell } from 'components/pages/trips/TableCell';
+import { TripActions } from 'components/pages/trips/TripActions';
 import { TripRecord } from 'models/TripRecord';
 
-type TripProps = {
-  trip: TripRecord;
-};
-
-export function TripRow({ trip }: TripProps) {
+export function TripRow({ trip }: { trip: TripRecord }) {
   return (
     <div className="contents">
       <TableCell>{trip.assignee.email}</TableCell>
@@ -21,10 +18,12 @@ export function TripRow({ trip }: TripProps) {
       </TableCell>
       <TableCell span={2}>
         <div className="flex w-full">
-          <div className="self-start">
+          <div className="flex-grow">
             <TripStatusCell trip={trip} />
           </div>
-          <div className="self-end"></div>
+          <div className="flex-nowrap flex gap-x-2">
+            <TripActions trip={trip} />
+          </div>
         </div>
       </TableCell>
     </div>
