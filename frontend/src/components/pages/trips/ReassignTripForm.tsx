@@ -27,7 +27,7 @@ export function ReassignTripForm({ onSuccess, tripId }: { onSuccess: () => void;
   });
 
   const onSubmit = useSubmit<ReassignTripFormAttributes, ReassignTripFormRecord>({
-    onSuccess,
+    onSuccess: () => onSuccess(),
     form,
     mutate,
   });
