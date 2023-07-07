@@ -12,7 +12,7 @@ class ApplicationController < ActionController::API
   end
 
   def authenticate_user!
-    @current_user = User.find_by(email: request.headers["current-email"])
+    @current_user = User.find_by(email: request.headers["current-email"]) if request.headers["current-email"].present?
   end
 
   def current_user
