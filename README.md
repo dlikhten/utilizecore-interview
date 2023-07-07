@@ -2,6 +2,16 @@
 
 ## Running
 
+prereqs:
+
+- you need to have postgres installed. And the ability to install the `pg` gem, which means all libraries are already
+  properly linked in your system.
+- you need to have at least a ruby and node installed so we can run `bundle install` / `npm install`.
+- if you have rb-env or rvm, the backend has configs for it
+- if you have nvm, the frontend has configs for it
+- if you aren't using version managers, please check the `api/.ruby-version` and `frontend/.nvmrc` for which versions
+  this code was written against, it is very likely to work against other versions, but I haven't tested others.
+
 to run the server:
 
 ```bash
