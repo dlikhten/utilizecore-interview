@@ -3,8 +3,15 @@ import { TripStatusCell } from 'components/pages/trips/StatusCell';
 import { TableCell } from 'components/pages/trips/TableCell';
 import { TripActions } from 'components/pages/trips/TripActions';
 import { TripRecord } from 'models/TripRecord';
+import { ReactNode } from 'react';
 
-export function TripRow({ trip }: { trip: TripRecord }) {
+type TripRowProps = {
+  trip: TripRecord;
+  onSuccess: () => void;
+  openPopup: (title: string, content: ReactNode) => void;
+};
+
+export function TripRow({ trip }: TripRowProps) {
   return (
     <div className="contents">
       <TableCell>{trip.assignee.email}</TableCell>

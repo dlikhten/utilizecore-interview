@@ -1,5 +1,5 @@
 import { CheckCircleIcon, ExclamationCircleIcon, QuestionMarkCircleIcon } from '@heroicons/react/20/solid';
-import { duration } from 'concerns/date_parsing';
+import { duration, parseISO } from 'concerns/date_parsing';
 import { TripRecord } from 'models/TripRecord';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -22,13 +22,13 @@ export function TripStatusCell({ trip }: { trip: TripRecord }) {
     if (computedStatus === 'overdue' || computedStatus === 'in-progress') {
       interval = setInterval(() => {
         if ((computedStatus === 'overdue' || computedStatus === 'in-progress') && trip.startAt) {
-          const hours = duration(trip.startAt, new Date(), 'hours');
-          const minutes = duration(trip.startAt, new Date(), 'minutes') % 60;
-          const seconds = duration(trip.startAt, new Date(), 'seconds') % 60;
+          const pStartAt = parseISO(trip.startAt);
+          const pNow = parseISO(new Date());
 
-          setElapsed(
-            `${paddedPositiveNumber(hours)}:${paddedPositiveNumber(minutes)}:${paddedPositiveNumber(seconds)}`
-          );
+          const hours = duration(pStartAt, pNow, 'hours');
+          const minutes = duration(pStartAt, pNow, 'minutes') % 60;
+
+          setElapsed(`${paddedPositiveNumber(hours)}:${paddedPositiveNumber(minutes)}`);
         } else {
           setElapsed('');
         }

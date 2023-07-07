@@ -89,8 +89,13 @@ The general architecture is
 - useSWR (data request framework, it is amazing)
 - tailwindcss (I personally really like this for managing css in react)
 - formik for form management (again a really great framework to keep forms simple)
+- dayjs for date/timezone processing
 
 I avoided all pagination work, and I know this will definitely cause us to be unable to select any assignee past the api
 page limit, or see more than the page limit of trips, but this is just to save implementation time. Also if I was to
 implement pagination, I'd need to implement a complex select for users, or some sort of search component and to save time
 I didn't do that here.
+
+I also didn't implement anything for a calendar / time selector, so it uses `<input type="datetime-local"` which
+has lots of limitations, and has some issues with pre-filling values. This saves a bunch of time on finding a
+library and integrating it.
