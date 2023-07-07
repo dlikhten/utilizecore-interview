@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 
 export type TripRowProps = {
   trip: TripRecord;
-  onSuccess: () => void;
+  onSuccess: (message?: string) => void;
   openPopup: (title: string, content: ReactNode) => void;
 };
 

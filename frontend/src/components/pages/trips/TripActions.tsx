@@ -1,21 +1,40 @@
 import { Button } from 'components/forms/Button';
 import { ReassignTripForm } from 'components/pages/trips/ReassignTripForm';
 import { TripRowProps } from 'components/pages/trips/TripRow';
+import { ActionCheckIn } from 'models/forms/ActionCheckIn';
+import { ActionCheckOut } from 'models/forms/ActionCheckOut';
+import { useCallback } from 'react';
 
 export function TripActions({ trip, onSuccess, openPopup }: TripRowProps) {
+  const checkIn = useCallback(async () => {
+    const action = new ActionCheckIn();
+    action.tripId = trip.id!;
+    await action.save();
+    onSuccess('Checked in');
+  }, [onSuccess, trip.id]);
+
+  const checkOut = useCallback(async () => {
+    const action = new ActionCheckOut();
+    action.tripId = trip.id!;
+    await action.save();
+    onSuccess('Checked out');
+  }, [onSuccess, trip.id]);
+
+  const reassign = useCallback(() => {
+    openPopup('Reassign', <ReassignTripForm onSuccess={onSuccess} tripId={trip.id!} />);
+  }, [onSuccess, openPopup, trip.id]);
+
   if (trip.status === 'not-started') {
     return (
       <>
-        <Button>Check in</Button>
-        <Button onClick={() => openPopup('Reassign', <ReassignTripForm onSuccess={onSuccess} tripId={trip.id!} />)}>
-          Reassign
-        </Button>
+        <Button onClick={checkIn}>Check in</Button>
+        <Button onClick={reassign}>Reassign</Button>
       </>
     );
   } else if (trip.status === 'in-progress') {
     return (
       <>
-        <Button>Check out</Button>
+        <Button onClick={checkOut}>Check out</Button>
       </>
     );
   } else if (trip.status === 'completed') {
