@@ -39,6 +39,7 @@ export default function Trips() {
 
   const [popupContent, setPopupContent] = useState<ReactNode | null>(null);
   const [popupTitle, setPopupTitle] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null | undefined>(null);
 
   const closePopup = useCallback((e?: any) => {
     if (e) {
@@ -46,12 +47,14 @@ export default function Trips() {
     }
     setPopupContent(null);
     setPopupTitle(null);
+    setSuccessMessage(null);
   }, []);
 
   const onSuccess = useCallback(
     (message?: string) => {
       mutate();
       closePopup();
+      setSuccessMessage(message);
     },
     [closePopup, mutate]
   );
@@ -59,6 +62,7 @@ export default function Trips() {
   const openPopup = useCallback((popupTitle: string, popupContent: ReactNode) => {
     setPopupTitle(popupTitle);
     setPopupContent(popupContent);
+    setSuccessMessage(null);
   }, []);
 
   const openAdd = useCallback(() => {
@@ -91,6 +95,16 @@ export default function Trips() {
             <PlusCircleIcon width={24} height={24} className="mr-2" /> Add Trip
           </Button>
         </div>
+        {successMessage && (
+          <div className="bg-green-500 text-white rounded-md my-2 p-2 flex">
+            <div className="flex-grow">{successMessage}</div>
+            <div className="">
+              <a href="#" onClick={() => setSuccessMessage(null)}>
+                <XMarkIcon width={24} height={24} />
+              </a>
+            </div>
+          </div>
+        )}
         <div className="grid grid-cols-7 mt-4">
           <HeaderCell position="head">Assignee</HeaderCell>
           <HeaderCell>Owner</HeaderCell>
