@@ -113,7 +113,9 @@ export default function Trips() {
           <HeaderCell>ETA</HeaderCell>
           <HeaderCell>ETC</HeaderCell>
           <HeaderCell>Status</HeaderCell>
-          <HeaderCell position="tail">Actions</HeaderCell>
+          <HeaderCell position="tail">
+            <div className="flex justify-end w-full">Actions</div>
+          </HeaderCell>
         </div>
         <div className="grid grid-cols-7 mt-2 rounded-md overflow-hidden">
           {map(trips, trip => (
