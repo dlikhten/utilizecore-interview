@@ -6,7 +6,7 @@ describe ActionCheckOutForm do
   context "action" do
     it "transitions the given trip to in-progress" do
       Timecop.freeze do
-        trip = create(:trip, :started)
+        trip = create(:trip, :started, start_at: Time.zone.now - 10.minutes)
 
         form = ActionCheckOutForm.new({
           trip_id: trip.id.to_s
