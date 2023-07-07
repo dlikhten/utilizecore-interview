@@ -1,5 +1,6 @@
 import { Button } from 'components/forms/Button';
 import { ReassignTripForm } from 'components/pages/trips/ReassignTripForm';
+import { ReviewTrip } from 'components/pages/trips/ReviewTrip';
 import { TripRowProps } from 'components/pages/trips/TripRow';
 import { ActionCheckIn } from 'models/forms/ActionCheckIn';
 import { ActionCheckOut } from 'models/forms/ActionCheckOut';
@@ -24,6 +25,10 @@ export function TripActions({ trip, onSuccess, openPopup }: TripRowProps) {
     openPopup('Reassign', <ReassignTripForm onSuccess={onSuccess} tripId={trip.id!} />);
   }, [onSuccess, openPopup, trip.id]);
 
+  const review = useCallback(() => {
+    openPopup('Review', <ReviewTrip trip={trip} onSuccess={onSuccess} />);
+  }, [openPopup, trip]);
+
   if (trip.status === 'not-started') {
     return (
       <>
@@ -40,7 +45,7 @@ export function TripActions({ trip, onSuccess, openPopup }: TripRowProps) {
   } else if (trip.status === 'completed') {
     return (
       <>
-        <Button>Review</Button>
+        <Button onClick={review}>Review</Button>
       </>
     );
   }

@@ -18,10 +18,10 @@ export function TripRow({ trip, onSuccess, openPopup }: TripRowProps) {
       <TableCell>{trip.owner.email}</TableCell>
       <TableCell>{trip.location}</TableCell>
       <TableCell>
-        <FormatDate date={trip.estimatedTimeOfArrival} format="MM/DD/YYYY hh:mm A z" />
+        <FormatDate.LongForm date={trip.estimatedTimeOfArrival} />
       </TableCell>
       <TableCell>
-        <FormatDate date={trip.estimatedTimeOfCompletion} format="MM/DD/YYYY hh:mm A z" />
+        <FormatDate.LongForm date={trip.estimatedTimeOfCompletion} />
       </TableCell>
       <TableCell span={2}>
         <div className="flex w-full">

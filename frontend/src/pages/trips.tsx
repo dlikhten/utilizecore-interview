@@ -2,8 +2,9 @@ import { PlusCircleIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import classNames from 'classnames';
 import { Button } from 'components/forms/Button';
 import { NewTripForm } from 'components/pages/trips/NewTripForm';
+import { ReviewTrip } from 'components/pages/trips/ReviewTrip';
 import { TripRow } from 'components/pages/trips/TripRow';
-import { createSWRKey } from 'concerns/jsonapi_utils';
+import { createSWRKey, useMergeIncludes } from 'concerns/jsonapi_utils';
 import { map } from 'lodash-es';
 import { TripRecord } from 'models/TripRecord';
 import { ReactNode, useCallback, useState } from 'react';
@@ -23,7 +24,7 @@ function HeaderCell({ children, position = 'mid' }: { children: ReactNode; posit
 }
 
 export default function Trips() {
-  const dependencyGraph = TripRow.DEPENDENCY_GRAPH.trip;
+  const dependencyGraph = useMergeIncludes(TripRow.DEPENDENCY_GRAPH.trip, ReviewTrip.DEPENDENCY_GRAPH.trip);
 
   const {
     data: trips,

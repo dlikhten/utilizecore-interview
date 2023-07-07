@@ -36,7 +36,7 @@ export function NewTripForm({ onSuccess }: { onSuccess: () => void }) {
   );
 
   const onSubmit = useSubmit<CreateTripFormAttributes, CreateTripFormRecord>({
-    onSuccess,
+    onSuccess: () => onSuccess(),
     recordClass: CreateTripFormRecord,
     transformValues: values => {
       // the raw data contains no timezone information, we must correct that so the server interprets this date correctly
