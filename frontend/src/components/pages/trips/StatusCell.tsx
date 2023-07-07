@@ -41,25 +41,25 @@ export function TripStatusCell({ trip }: { trip: TripRecord }) {
   return useMemo(() => {
     if (computedStatus === 'not-started') {
       return (
-        <div className="bg-blue-400 p-2 rounded-md inline-block">
+        <div className="bg-blue-400 p-2 rounded-md inline-block text-white">
           <ExclamationCircleIcon width={20} height={20} className="inline fill-white" /> Unstarted
         </div>
       );
     } else if (computedStatus === 'completed') {
       return (
-        <div className="bg-green-500 p-2 rounded-md inline-block">
+        <div className="bg-green-500 p-2 rounded-md inline-block text-white">
           <CheckCircleIcon width={20} height={20} className="inline fill-white" /> Complete
         </div>
       );
     } else if (computedStatus === 'overdue') {
       return (
-        <div className="bg-red-500 p-2 rounded-md inline-block">
+        <div className="bg-red-500 p-2 rounded-md inline-block text-white">
           <QuestionMarkCircleIcon width={20} height={20} className="inline fill-white" /> Overdue - Total {elapsed}
         </div>
       );
     } else {
       return (
-        <div className="bg-orange-300 p-2 rounded-md inline-block">
+        <div className="bg-orange-400 p-2 rounded-md inline-block text-white">
           <QuestionMarkCircleIcon width={20} height={20} className="inline fill-white" /> In Progress - Total {elapsed}
         </div>
       );
