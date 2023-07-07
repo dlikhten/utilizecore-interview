@@ -1,7 +1,7 @@
 import { FormikHelpers } from 'formik';
-import { identity } from 'lodash-es';
+import { identity, mergeWith } from 'lodash-es';
 import { ApplicationRecord } from 'models/ApplicationRecord';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { SpraypaintBase } from 'spraypaint';
 import { ValidationErrors } from 'spraypaint/lib-esm/validation-errors';
 import { KeyedMutator } from 'swr';
@@ -76,4 +76,31 @@ export function jsonApiErrorToFormikError<T extends SpraypaintBase>(errors: Vali
     result[errorsKey] = errors[errorsKey]!.fullMessage;
   }
   return result;
+}
+
+export function mergeFormWithInitialValues<X, Y>(initialValues: X, formValues: Y): X & Y {
+  return mergeWith(initialValues, formValues, (objValue, formValue) => {
+    return formValue != null ? formValue : objValue;
+  });
+}
+
+type useLoadFormInitialValuesProps<T> = {
+  blankInitialValues: T;
+  fetcher: (id?: string) => { data: any; isLoading: boolean; mutate: KeyedMutator<any> };
+  id?: string;
+};
+
+export function useLoadFormInitialValues<T>({ blankInitialValues, fetcher, id }: useLoadFormInitialValuesProps<T>) {
+  const { data: record, isLoading, mutate } = fetcher(id);
+  const form = record?.data;
+
+  const initialValues: T = useMemo(() => {
+    if (id) {
+      return form ? mergeFormWithInitialValues(blankInitialValues, form.attributes as T) : blankInitialValues;
+    } else {
+      return blankInitialValues;
+    }
+  }, [blankInitialValues, form, id]);
+
+  return { form, isLoading, mutate, initialValues };
 }

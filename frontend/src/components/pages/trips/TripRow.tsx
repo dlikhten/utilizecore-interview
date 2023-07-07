@@ -5,13 +5,13 @@ import { TripActions } from 'components/pages/trips/TripActions';
 import { TripRecord } from 'models/TripRecord';
 import { ReactNode } from 'react';
 
-type TripRowProps = {
+export type TripRowProps = {
   trip: TripRecord;
   onSuccess: () => void;
   openPopup: (title: string, content: ReactNode) => void;
 };
 
-export function TripRow({ trip }: TripRowProps) {
+export function TripRow({ trip, onSuccess, openPopup }: TripRowProps) {
   return (
     <div className="contents">
       <TableCell>{trip.assignee.email}</TableCell>
@@ -29,7 +29,7 @@ export function TripRow({ trip }: TripRowProps) {
             <TripStatusCell trip={trip} />
           </div>
           <div className="flex-nowrap flex gap-x-2">
-            <TripActions trip={trip} />
+            <TripActions trip={trip} onSuccess={onSuccess} openPopup={openPopup} />
           </div>
         </div>
       </TableCell>

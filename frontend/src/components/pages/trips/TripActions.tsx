@@ -1,12 +1,15 @@
 import { Button } from 'components/forms/Button';
-import { TripRecord } from 'models/TripRecord';
+import { ReassignTripForm } from 'components/pages/trips/ReassignTripForm';
+import { TripRowProps } from 'components/pages/trips/TripRow';
 
-export function TripActions({ trip }: { trip: TripRecord }) {
+export function TripActions({ trip, onSuccess, openPopup }: TripRowProps) {
   if (trip.status === 'not-started') {
     return (
       <>
         <Button>Check in</Button>
-        <Button>Reassign</Button>
+        <Button onClick={() => openPopup('Reassign', <ReassignTripForm onSuccess={onSuccess} tripId={trip.id!} />)}>
+          Reassign
+        </Button>
       </>
     );
   } else if (trip.status === 'in-progress') {

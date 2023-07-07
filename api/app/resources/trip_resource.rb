@@ -15,7 +15,7 @@ class TripResource < ApplicationResource
   def base_scope
     # nobody should be listing someone else's trips, and this keeps querying trips really simple...
     if current_user.present?
-      Trip.for_user(current_user)
+      Trip.for_user(current_user).order("created_at desc")
     else
       Trip.none
     end

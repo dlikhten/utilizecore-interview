@@ -48,10 +48,13 @@ export default function Trips() {
     setPopupTitle(null);
   }, []);
 
-  const onSuccess = useCallback(() => {
-    mutate();
-    closePopup();
-  }, [closePopup, mutate]);
+  const onSuccess = useCallback(
+    (message?: string) => {
+      mutate();
+      closePopup();
+    },
+    [closePopup, mutate]
+  );
 
   const openPopup = useCallback((popupTitle: string, popupContent: ReactNode) => {
     setPopupTitle(popupTitle);

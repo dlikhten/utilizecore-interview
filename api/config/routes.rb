@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     # forms
     resources :login_forms, only: [:create]
     resources :create_trip_forms, only: [:create]
+    resources :reassign_trip_forms, only: [:update, :show]
     resources :action_check_in_forms, only: [:create]
     resources :action_check_out_forms, only: [:create]
   end
